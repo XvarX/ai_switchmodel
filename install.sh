@@ -1,5 +1,4 @@
 #!/bin/sh
-set -e
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
@@ -23,8 +22,6 @@ npm link
 echo ""
 echo "  [OK] claude-switch installed!"
 echo ""
-echo "  Quick start:"
-echo "    cs add myprovider"
-echo "    restart terminal"
-echo "    use_myprovider"
+echo "  Please run:  . ~/.bashrc"
+echo "  Or open a new terminal."
 echo ""

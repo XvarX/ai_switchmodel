@@ -123,5 +123,9 @@ module.exports = function(args) {
     }
   }
 
-  console.log('\n  Restart your terminal or source your profile for changes to take effect.\n');
+  if (process.platform === 'win32') {
+    console.log('\n  Restart your terminal or open a new one for changes to take effect.\n');
+  } else {
+    console.log('\n  Run `. ~/.bashrc` to activate now, or open a new terminal.\n');
+  }
 };
