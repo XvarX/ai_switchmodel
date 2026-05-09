@@ -68,6 +68,15 @@ module.exports = function(args) {
         content = fs.readFileSync(rcFile, 'utf8');
       }
       content = replaceBlock(content, block);
+
+      // If writing to .bash_profile, ensure it sources .bashrc
+      if (rcFile.endsWith('.bash_profile')) {
+        const sourceLine = '[ -s "$HOME/.bashrc" ] && . "$HOME/.bashrc"';
+        if (!content.includes('"$HOME/.bashrc"') && !content.includes('~/.bashrc')) {
+          content = sourceLine + '\n\n' + content;
+        }
+      }
+
       fs.writeFileSync(rcFile, content, 'utf8');
       console.log(`  [OK] Bash functions written to ${rcFile}`);
     }
