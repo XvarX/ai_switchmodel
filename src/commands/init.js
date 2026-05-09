@@ -28,8 +28,10 @@ function getShellFromArgs(args) {
 function detectShells() {
   const shells = [];
   if (process.env.SHELL) shells.push('bash');
-  if (process.env.PSModulePath) shells.push('powershell');
-  shells.push('cmd');
+  if (process.platform === 'win32') {
+    if (process.env.PSModulePath) shells.push('powershell');
+    shells.push('cmd');
+  }
   return shells.length > 0 ? shells : ['bash'];
 }
 
