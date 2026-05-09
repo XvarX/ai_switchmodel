@@ -67,7 +67,7 @@ module.exports = function(args) {
       }
       content = replaceBlock(content, block);
       fs.writeFileSync(rcFile, content, 'utf8');
-      console.log(`  ✓ Bash functions written to ${rcFile}`);
+      console.log(`  [OK] Bash functions written to ${rcFile}`);
     }
   }
 
@@ -87,12 +87,12 @@ module.exports = function(args) {
     const block = psGen.generateAllFunctions(providers);
     content = replaceBlock(content, block);
     fs.writeFileSync(profileFile, content, 'utf8');
-    console.log(`  ✓ PowerShell functions written to ${profileFile}`);
+    console.log(`  [OK] PowerShell functions written to ${profileFile}`);
   }
 
   if (shells.includes('cmd')) {
     const dir = cmdGen.generateAllFiles(providers);
-    console.log(`  ✓ CMD scripts written to ${dir}`);
+    console.log(`  [OK] CMD scripts written to ${dir}`);
 
     // Auto-add to user PATH if not already there
     const userPath = execSync(
@@ -106,9 +106,9 @@ module.exports = function(args) {
         `powershell -NoProfile -Command "[Environment]::SetEnvironmentVariable('Path', [Environment]::GetEnvironmentVariable('Path','User') + ';${dir}', 'User')"`,
         { encoding: 'utf8' }
       );
-      console.log('  ✓ Added to user PATH');
+      console.log('  [OK] Added to user PATH');
     } else {
-      console.log('  ✓ Already in user PATH');
+      console.log('  [OK] Already in user PATH');
     }
   }
 

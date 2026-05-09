@@ -58,6 +58,6 @@ module.exports = async function(args) {
 
   config.addProvider(name, { url, key, sonnet, haiku, opus });
 
-  console.log(`\n  ✓ Provider "${name}" saved.`);
+  console.log(`\n  [OK] Provider "${name}" saved.`);
   console.log('  Run "cs init" to update shell functions.\n');
 };

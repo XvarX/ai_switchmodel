@@ -13,5 +13,5 @@ module.exports = function(args) {
   }
 
   config.removeProvider(name);
-  console.log(`  ✓ Provider "${name}" removed.`);
+  console.log(`  [OK] Provider "${name}" removed.`);
 };
