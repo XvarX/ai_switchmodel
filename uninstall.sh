@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
-set -e
+#!/bin/sh
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
@@ -9,7 +8,7 @@ echo "  ------------------------"
 echo ""
 
 # Load nvm if available
-export NVM_DIR="$HOME/.nvm"
+NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
 cd "$SCRIPT_DIR"

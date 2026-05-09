@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -9,10 +9,10 @@ echo "  ----------------------"
 echo ""
 
 # Load nvm if available
-export NVM_DIR="$HOME/.nvm"
+NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
-if ! command -v node &>/dev/null; then
+if ! command -v node >/dev/null 2>&1; then
   echo "  [ERROR] node is required but not installed."
   exit 1
 fi
