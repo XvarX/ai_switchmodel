@@ -1,0 +1,13 @@
+{
+  "name": "claude-switch",
+  "version": "1.0.0",
+  "description": "One-command CLI to switch Claude Code API providers",
+  "bin": {
+    "cs": "./bin/cs.js"
+  },
+  "files": ["bin", "src"],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "MIT"
+}
