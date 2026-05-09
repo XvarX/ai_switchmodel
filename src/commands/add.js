@@ -45,18 +45,23 @@ module.exports = async function(args) {
     const defaults = config.guessDefaults(url);
 
     if (!model) model = await prompt(rl, 'Model name', defaults.model);
-    if (!sonnet) sonnet = await prompt(rl, 'Sonnet model name', defaults.sonnet);
-    if (!haiku) haiku = await prompt(rl, 'Haiku model name', defaults.haiku);
-    if (!opus) opus = await prompt(rl, 'Opus model name', defaults.opus);
+    if (!opus) opus = await prompt(rl, 'Opus model name (empty = same as Model)', '');
+    if (!sonnet) sonnet = await prompt(rl, 'Sonnet model name (empty = same as Opus)', '');
+    if (!haiku) haiku = await prompt(rl, 'Haiku model name (empty = same as Sonnet)', '');
+
+    // Cascade: haiku <- sonnet <- opus <- model
+    opus = opus || model;
+    sonnet = sonnet || opus;
+    haiku = haiku || sonnet;
 
     rl.close();
   } else {
-    // Fill missing model names with guesses
+    // Fill missing model names with guesses, then cascade
     const defaults = config.guessDefaults(url);
     model = model || defaults.model;
-    sonnet = sonnet || defaults.sonnet;
-    haiku = haiku || defaults.haiku;
-    opus = opus || defaults.opus;
+    opus = opus || defaults.opus || model;
+    sonnet = sonnet || defaults.sonnet || opus;
+    haiku = haiku || defaults.haiku || sonnet;
   }
 
   config.addProvider(name, { url, key, model, sonnet, haiku, opus });
