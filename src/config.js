@@ -16,9 +16,9 @@ function save(config) {
   fs.writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2) + '\n');
 }
 
-function addProvider(name, { url, key, sonnet, haiku, opus }) {
+function addProvider(name, { url, key, model, sonnet, haiku, opus }) {
   const config = load();
-  config.providers[name] = { url, key, sonnet, haiku, opus };
+  config.providers[name] = { url, key, model, sonnet, haiku, opus };
   save(config);
 }
 
@@ -41,12 +41,12 @@ function listProviders() {
 function guessDefaults(url) {
   const lower = url.toLowerCase();
   if (lower.includes('deepseek')) {
-    return { sonnet: 'deepseek-chat', haiku: 'deepseek-chat', opus: 'deepseek-chat' };
+    return { model: 'deepseek-chat', sonnet: 'deepseek-chat', haiku: 'deepseek-chat', opus: 'deepseek-chat' };
   }
   if (lower.includes('bigmodel') || lower.includes('glm')) {
-    return { sonnet: 'glm-4', haiku: 'glm-4-flash', opus: 'glm-4-plus' };
+    return { model: 'glm-4', sonnet: 'glm-4', haiku: 'glm-4-flash', opus: 'glm-4-plus' };
   }
-  return { sonnet: '', haiku: '', opus: '' };
+  return { model: '', sonnet: '', haiku: '', opus: '' };
 }
 
 module.exports = { CONFIG_PATH, load, save, addProvider, removeProvider, getProvider, listProviders, guessDefaults };

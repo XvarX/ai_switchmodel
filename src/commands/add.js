@@ -31,7 +31,7 @@ module.exports = async function(args) {
     }
   }
 
-  let { url, key, sonnet, haiku, opus } = flags;
+  let { url, key, model, sonnet, haiku, opus } = flags;
 
   // Interactive mode if url or key missing from flags
   if (!url || !key) {
@@ -43,6 +43,7 @@ module.exports = async function(args) {
 
     const defaults = config.guessDefaults(url);
 
+    if (!model) model = await prompt(rl, 'Model name', defaults.model);
     if (!sonnet) sonnet = await prompt(rl, 'Sonnet model name', defaults.sonnet);
     if (!haiku) haiku = await prompt(rl, 'Haiku model name', defaults.haiku);
     if (!opus) opus = await prompt(rl, 'Opus model name', defaults.opus);
@@ -51,12 +52,13 @@ module.exports = async function(args) {
   } else {
     // Fill missing model names with guesses
     const defaults = config.guessDefaults(url);
+    model = model || defaults.model;
     sonnet = sonnet || defaults.sonnet;
     haiku = haiku || defaults.haiku;
     opus = opus || defaults.opus;
   }
 
-  config.addProvider(name, { url, key, sonnet, haiku, opus });
+  config.addProvider(name, { url, key, model, sonnet, haiku, opus });
 
   console.log(`\n  [OK] Provider "${name}" saved.`);
   console.log('  Run "cs init" to update shell functions.\n');
