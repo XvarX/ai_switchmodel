@@ -1,4 +1,5 @@
 const config = require('../config');
+const initCmd = require('./init');
 
 module.exports = function(args) {
   const name = args[0];
@@ -14,4 +15,5 @@ module.exports = function(args) {
 
   config.removeProvider(name);
   console.log(`  [OK] Provider "${name}" removed.`);
+  initCmd([]);
 };

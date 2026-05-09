@@ -1,5 +1,6 @@
 const readline = require('readline');
 const config = require('../config');
+const initCmd = require('./init');
 
 function prompt(rl, question, defaultVal) {
   const suffix = defaultVal ? ` [${defaultVal}]` : '';
@@ -61,5 +62,5 @@ module.exports = async function(args) {
   config.addProvider(name, { url, key, model, sonnet, haiku, opus });
 
   console.log(`\n  [OK] Provider "${name}" saved.`);
-  console.log('  Run "cs init" to update shell functions.\n');
+  initCmd([]);
 };
