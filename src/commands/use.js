@@ -26,21 +26,21 @@ module.exports = function(args) {
 
   if (shell === 'bash') {
     console.log(`export ANTHROPIC_BASE_URL="${provider.url}"`);
-    console.log(`export ANTHROPIC_API_KEY="${provider.key}"`);
+    console.log(`export ANTHROPIC_AUTH_TOKEN="${provider.key}"`);
     console.log(`export ANTHROPIC_DEFAULT_SONNET_MODEL="${provider.sonnet}"`);
     console.log(`export ANTHROPIC_DEFAULT_HAIKU_MODEL="${provider.haiku}"`);
     console.log(`export ANTHROPIC_DEFAULT_OPUS_MODEL="${provider.opus}"`);
     console.log(`echo '  ✓ Switched to ${name} (${provider.sonnet} @ ${provider.url})'`);
   } else if (shell === 'powershell') {
     console.log(`$env:ANTHROPIC_BASE_URL = "${provider.url}"`);
-    console.log(`$env:ANTHROPIC_API_KEY = "${provider.key}"`);
+    console.log(`$env:ANTHROPIC_AUTH_TOKEN = "${provider.key}"`);
     console.log(`$env:ANTHROPIC_DEFAULT_SONNET_MODEL = "${provider.sonnet}"`);
     console.log(`$env:ANTHROPIC_DEFAULT_HAIKU_MODEL = "${provider.haiku}"`);
     console.log(`$env:ANTHROPIC_DEFAULT_OPUS_MODEL = "${provider.opus}"`);
     console.log(`Write-Host "  ✓ Switched to ${name} (${provider.sonnet} @ ${provider.url})"`);
   } else if (shell === 'cmd') {
     console.log(`set ANTHROPIC_BASE_URL=${provider.url}`);
-    console.log(`set ANTHROPIC_API_KEY=${provider.key}`);
+    console.log(`set ANTHROPIC_AUTH_TOKEN=${provider.key}`);
     console.log(`set ANTHROPIC_DEFAULT_SONNET_MODEL=${provider.sonnet}`);
     console.log(`set ANTHROPIC_DEFAULT_HAIKU_MODEL=${provider.haiku}`);
     console.log(`set ANTHROPIC_DEFAULT_OPUS_MODEL=${provider.opus}`);

@@ -6,7 +6,7 @@ function generateCmdFile(name, provider) {
   const lines = [
     '@echo off',
     `set ANTHROPIC_BASE_URL=${provider.url}`,
-    `set ANTHROPIC_API_KEY=${provider.key}`,
+    `set ANTHROPIC_AUTH_TOKEN=${provider.key}`,
     `set ANTHROPIC_DEFAULT_SONNET_MODEL=${provider.sonnet}`,
     `set ANTHROPIC_DEFAULT_HAIKU_MODEL=${provider.haiku}`,
     `set ANTHROPIC_DEFAULT_OPUS_MODEL=${provider.opus}`,
