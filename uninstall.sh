@@ -8,6 +8,10 @@ echo "  claude-switch uninstaller"
 echo "  ------------------------"
 echo ""
 
+# Load nvm if available
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
 cd "$SCRIPT_DIR"
 npm unlink 2>/dev/null || true
 

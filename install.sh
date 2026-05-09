@@ -8,6 +8,10 @@ echo "  claude-switch installer"
 echo "  ----------------------"
 echo ""
 
+# Load nvm if available
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
 if ! command -v node &>/dev/null; then
   echo "  [ERROR] node is required but not installed."
   exit 1
