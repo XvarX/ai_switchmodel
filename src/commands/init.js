@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
+const { execSync } = require('child_process');
 const config = require('../config');
 const bashGen = require('../shells/bash');
 const psGen = require('../shells/powershell');
@@ -92,7 +93,23 @@ module.exports = function(args) {
   if (shells.includes('cmd')) {
     const dir = cmdGen.generateAllFiles(providers);
     console.log(`  ✓ CMD scripts written to ${dir}`);
-    console.log(`    Add this directory to your PATH: ${dir}`);
+
+    // Auto-add to user PATH if not already there
+    const userPath = execSync(
+      'powershell -NoProfile -Command "[Environment]::GetEnvironmentVariable(\'Path\', \'User\')"',
+      { encoding: 'utf8' }
+    ).trim();
+    const normalizedDir = dir.replace(/[/\\]/g, path.sep);
+    const inPath = userPath.split(';').some(p => p.replace(/[/\\]/g, path.sep) === normalizedDir);
+    if (!inPath) {
+      execSync(
+        `powershell -NoProfile -Command "[Environment]::SetEnvironmentVariable('Path', [Environment]::GetEnvironmentVariable('Path','User') + ';${dir}', 'User')"`,
+        { encoding: 'utf8' }
+      );
+      console.log('  ✓ Added to user PATH');
+    } else {
+      console.log('  ✓ Already in user PATH');
+    }
   }
 
   console.log('\n  Restart your terminal or source your profile for changes to take effect.\n');
