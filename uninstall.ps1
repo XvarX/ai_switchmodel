@@ -1,6 +1,6 @@
 $ErrorActionPreference = "Stop"
 
-$InstallDir = "$env:USERPROFILE\.claude-switch"
+$ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $CmdDir = "$env:USERPROFILE\.claude-switch-cmd"
 $ConfigFile = "$env:USERPROFILE\.claude-switch.json"
 
@@ -9,32 +9,19 @@ Write-Host "  claude-switch uninstaller"
 Write-Host "  ------------------------"
 Write-Host ""
 
-# Unlink npm
-if (Get-Command cs -ErrorAction SilentlyContinue) {
-  Write-Host "  Unlinking npm package..."
-  Set-Location $InstallDir
-  npm unlink --silent 2>$null; if ($LASTEXITCODE -ne 0) { npm unlink }
-}
+Set-Location $ScriptDir
+npm unlink 2>$null
 
-# Remove install dir
-if (Test-Path $InstallDir) {
-  Write-Host "  Removing $InstallDir..."
-  Remove-Item -Recurse -Force $InstallDir
-}
-
-# Remove config
 if (Test-Path $ConfigFile) {
   Write-Host "  Removing config file..."
   Remove-Item -Force $ConfigFile
 }
 
-# Remove CMD scripts
 if (Test-Path $CmdDir) {
   Write-Host "  Removing CMD scripts..."
   Remove-Item -Recurse -Force $CmdDir
 }
 
-# Clean PowerShell profile
 $profileFile = "$env:USERPROFILE\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1"
 if (Test-Path $profileFile) {
   Write-Host "  Cleaning PowerShell profile..."
@@ -47,5 +34,4 @@ if (Test-Path $profileFile) {
 
 Write-Host ""
 Write-Host "  [OK] claude-switch uninstalled!" -ForegroundColor Green
-Write-Host "  Note: Remove $CmdDir from PATH manually if needed."
 Write-Host ""
