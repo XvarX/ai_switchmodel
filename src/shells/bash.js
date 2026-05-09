@@ -1,6 +1,7 @@
 function generateUseFunction(name) {
   return `
 use_${name}() {
+  [ -s "$HOME/.nvm/nvm.sh" ] && . "$HOME/.nvm/nvm.sh"
   eval "$(cs use ${name} --shell bash)"
 }`;
 }
