@@ -1,7 +1,7 @@
 function generateUseFunction(name) {
   return `
 function use_${name} {
-  Invoke-Expression (cs use ${name} --shell powershell)
+  Invoke-Expression (cs use ${name} --shell powershell | Out-String)
 }`;
 }
 
